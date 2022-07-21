@@ -1,0 +1,32 @@
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0
+%24select=WorkItemId%2C Title%2C State&%24filter=Tags%2Fany(d%3Ad%2FTagName eq '{DEV_2022-04-18_(Clinical)}')
+
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?
+  $filter=Tags/any(d:d/TagName eq 'DEV_2022-04-18_(Clinical)')
+  &$select=WorkItemId, Title, State
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?%24select=WorkItemId%2C+Title%2C+State%2C&%24filter=Tags%2Fany%28d%3Ad%2FTagName+eq+%27%7BDEV_2022-04-18_%28Clinical%29%7D%27%29
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0/WorkItemSnapshot?%24apply=filter%3DTags%2Fany%28d%3Ad%2FTagName+eq+%27%7BDEV_2022-04-18_%28Clinical%7D%27%29
+  
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?%24filter=Tags%2Fany%28d%3Ad%2FTagName+eq+%27%7BDEV_2022-04-18_%28Clinical%29%7D%27%29
+
+
+Parent to child query
+
+https://analytics.dev.azure.com/{OrganizationName}/{ProjectName}/_odata/{version}//WorkItems?$select=WorkItemId,Title,State&$expand=Children($select=WorkItemId,Title,State)&$filter=WorkItemId eq 103
+
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?
+  $filter=WorkItemId/any(d:d/WorkItemId eq '86171')
+  &$select=WorkItemId, WorkItemType, Title, Parent, Assigned To, State, CreatedBy, CreatedDate, Source,Severity, Target Date,Story Point,Original Estimate,Completed Work,Remaining Work,Priority,Team,Iteration Path,Client2,Module)
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?%24select=WorkItemId%2C+Title%2C+State&%24filter=WorkItemId%2Fany%28d%3Ad%2FWorkItemId+eq+%2786171%27%29
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?
+  $filter=Tags/any(d:d/TagName eq '2022_R2')
+  &$select=WorkItemId, WorkItemType, Title, Parent, Assigned To, State, CreatedBy, CreatedDate, Source,Severity, Target Date,Story Point,Original Estimate,Completed Work,Remaining Work,Priority,Team,Iteration Path,Client2,Module)
+
+https://analytics.dev.azure.com/CITI-HIT/DRIS/_odata/v2.0//WorkItems?%24select=WorkItemId%2C+Title%2C+State&%24filter=Tags%2Fany%28d%3Ad%2FTagName+eq+%272022_R2%27%29

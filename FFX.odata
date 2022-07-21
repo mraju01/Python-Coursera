@@ -1,0 +1,62 @@
+https://analytics.dev.azure.com/{OrganizationName}/_odata/{version}/Areas?
+  $filter=Project/ProjectName eq 'ProjectA
+
+
+  Open Bugs
+  https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v3.0-preview/WorkItems?
+        $filter=WorkItemType eq 'Bug'
+            and StateCategory ne 'Closed'
+            and startswith(Area/AreaPath,'FFX HHS-IMS')
+        &$select=WorkItemId,Title,WorkItemType,State,Priority,Severity,TagNames,AreaSK
+        &$expand=AssignedTo($select=UserName),Iteration($select=IterationPath),Area($select=AreaPath)'
+        
+        
+        Sprint Burndown Chart
+        https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v3.0-preview/WorkItemSnapshot? 
+        $apply=filter(
+            WorkItemType eq 'Task'
+            and StateCategory ne 'Closed'
+            and DateValue ge Iteration/StartDate
+            and DateValue le Iteration/EndDate
+            and Iteration/StartDate le now() 
+            and Iteration/EndDate ge now()
+
+          https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v3.0-preview/WorkItemSnapshot?%24apply=filter%28+WorkItemType+eq+%27Task%27+and+StateCategory+ne+%27Closed%27+and+DateValue+ge+Iteration%2FStartDate+and+DateValue+le+Iteration%2FEndDate+and+Iteration%2FStartDate+le+now%28%29+and+Iteration%2FEndDate+ge+now%28%29
+        
+
+        https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v3.0-preview/WorkItemSnapshot?%24apply=filter%28+WorkItemType+eq+%27Task%27+and+StateCategory+ne+%27Closed%27+and+DateValue+ge+Iteration%2FStartDate+and+DateValue+le+Iteration%2FEndDate+and+Iteration%2FStartDate+le+now%28%29+and+Iteration%2FEndDate+ge+now%28%29+%29+%2Fgroupby%28+%28DateValue%2CState%2CWorkItemType%2CPriority%2CArea%2FAreaPath%2CIteration%2FIterationPath%29%2C+aggregate%28%24count+as+Count%2C+StoryPoints+with+sum+as+Remaining%29+%29
+
+
+        https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v3.0-preview/WorkItemSnapshot? 
+        $apply=filter(
+            and startswith(Area/AreaPath,'FFX HHS-IMS')
+            and DateValue ge Iteration/StartDate
+            and DateValue le Iteration/EndDate
+            and Iteration/StartDate le now() 
+            and Iteration/EndDate ge now()
+        )
+        /groupby(
+            (DateValue,State,WorkItemType,Priority,Area/AreaPath,Iteration/IterationPath),
+            aggregate($count as Count, RemainingWork with sum as RemainingWork)
+        )
+
+        https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v3.0-preview/WorkItemSnapshot? 
+        $apply=filter(
+            WorkItemType eq 'Task'
+            and startswith(Area/AreaPath,'FFX HHS-IMS')
+            and StateCategory ne 'Closed'
+            and DateValue ge Iteration/StartDate
+            and DateValue le Iteration/EndDate
+            and Iteration/StartDate le now() 
+            and Iteration/EndDate ge now()
+
+            https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v2.0
+            $apply=filter(
+                and DateValue ge Iteration/StartDate
+            and DateValue le Iteration/EndDate
+            and Iteration/StartDate le now() 
+            and Iteration/EndDate ge now()
+            )
+            &$select=WorkItemId, Title, State
+
+            https://analytics.dev.azure.com/citi-ebms/FFX%20HHS-IMS/_odata/v2.0
